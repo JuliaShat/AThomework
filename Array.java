@@ -77,6 +77,55 @@ public class Array {
         return newArray;
 
     }
+    
+     public static int[] getBubbleSorted (int[] array) {
+        boolean nextPass = true;
+        while(nextPass) {
+            nextPass = false;
+            for(int i = 1; i < array.length; i++) {
+                if(array[i] < array[i - 1]) {
+                    int temp = array[i];
+                    array[i] = array[i - 1];
+                    array[i - 1] = temp;
+                }
+            }
+        }
+        return array;
+    }
 
+    public static int[] getSelectionSorted(int[] array) {
+        int minIndex, minValue, temp=0;
+        for (int i = 0; i < array.length; i++) {
+            minIndex = i;
+            minValue = array [i];
+            for (int j = i; j < array.length; j++) {
+                if (array[j] < minValue) {
+                    minIndex = j;
+                    minValue = array[j];
+                }
+                else if (minValue< array[j])
+                    temp = array [i];
+                array [i] = array [minIndex];
+                array[minIndex] = temp;
+            } }
+        return array;
+    }
+
+
+    public static int[] getInsertionSorted(int[] array) {
+        int j, key, temp = 0;
+        for (int i = 1; i < array.length; i++) {
+            key = array [i];
+            j = i - 1;
+            while (j >= 0 &&  key < array[j]) {
+                temp = array [j];
+                array[j + 1] = array[j];
+                array[j + 1] = temp;
+                j--;
+            }
+
+        }
+        return array;
+    }
 
 }
