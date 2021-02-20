@@ -2,8 +2,6 @@ package com.javacourse.functions;
 
 public class Functions {
 
-
-
     public static String getDayNameByNumber(int number) {
         if(number < 1 || number > 7) {
             throw new IllegalArgumentException("Day number doesn't exist");
@@ -16,85 +14,53 @@ public class Functions {
             case 5:day = "Thursday"; break;
             case 6:day ="Friday"; break;
             case 7:day = "Saturday"; break;
-            default:day =  "Sunday";
+            case 1:day =  "Sunday";
         } return day;
     }
 
     public static double getDistanceBetweenTwoPoints(int x1, int y1, int x2, int y2) {
         return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
-    
-     public static String getStringFromNumber(int number) {
-        String units[] =
-                {" ", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
-        String tens[] =
-                {" ", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят",
-                        "семьдесят", "восемьдесят", "девяносто"};
-        String hundreds[] =
-                {" ", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот",
-                        "восемьсот", "девятьсот"};
-        String secondten[] =
-                {" ", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
-                        "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"};
 
-        while (true) {
-            if (number < 0 || number > 1000) {
-                System.out.println("Число должно быть в диапазоне от 0 до 999");
-                continue;
-            }
-            String text = "";
-
-            switch (number) {
-                case 0:
-                    text = "ноль";
-                    break;
-                case 10:
-                    text = "десять";
-                    break;
-                case 100:
-                    text = "сто";
-                    break;
-            }
-
-            if (number < 10) {
-                return units[number];
-            }
-            if (number > 10 && number < 20) {
-                return secondten[number];
-            }
-            if (number > 20 && number < 100) {
-                int high = number / 10;
-                int low = number % 10;
-                text = tens[high];
-                if (low != 0)
-                    text = text + " " + units[low];
-                return text;
-            }
-
-            if (number > 100 && number < 1000) {
-                int beginning = number / 100;
-                int middle = (number / 10) % 10;
-                int end = number % 10;
-                int decades  = number % 100;
-
-                if (end != 0 && decades >20) {
-                    text = hundreds[beginning] + " " + tens[middle] + " " + units[end];}
-                 else if (end==0) { text = hundreds[beginning] + " " + tens[middle];}
-                 else if  (decades  > 10 && decades < 20) {
-                     int i = decades%10;
-                     text = hundreds[beginning] + " " + secondten[i];
-
-                }
-                return text;
-            }
+    public static String getStringFromNumber (int number) {
+    String[] NUMBERS_0_19 = {"ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"};
+    String[] TENS = {"сто", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"};
+    String[] THOUSANDS = {"тысяча", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"};
+   String answer = "";
+    if ( number < 0 || number > 999 ) {
+            System.out.println("Число должно быть в диапазоне от 0 до 999");
         }
+
+        if ( number < 20 )
+            return NUMBERS_0_19[number];
+        if (number > 20 && number < 100 ) {
+            int tens = number / 10;
+            int digit = number % 10;
+            answer = TENS[tens];
+            if ( digit != 0 )
+                answer = answer + " " + NUMBERS_0_19[digit];
+        }
+        if (number > 100 && number <= 999) {
+            int beginning = number / 100;
+            int middle = (number%100 - number %10)/10;
+            int end = number % 10;
+            answer = THOUSANDS[beginning];
+            if ( end != 0 )
+                answer = answer + " " +TENS[middle] + " " +NUMBERS_0_19[end] ;
+            return answer;
+        }
+        else if (number == 100) {
+            answer = TENS[0] ; }
+
+        return answer;
     }
-    
-     public static int getNumberFromString(String number) {
+
+
+    public static int getNumberFromString(String number) {
         String[] UNITS = {"ноль","один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
         String[] UNITS11_19 = {"одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать",
                 "семнадцать", "восемнадцать", "девятнадцать"};
-        String[] TENS = {"ноль", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят",
+        String[] TENS = { "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят",
                 "восемьдесят", "девяносто"};
         String[] HUNDREDS = {"сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот",
                 "восемьсот", "девятьсот"};
@@ -102,7 +68,7 @@ public class Functions {
         String lowerCase = number.toLowerCase().trim().replaceAll("\\s+", " ");
         String[] splitNumber = lowerCase.split(" ");
 
-        if (splitNumber[0].equals("ноль")) {
+        if (splitNumber[0].equals(UNITS [0])) {
             return 0;
         }
 
@@ -114,16 +80,17 @@ public class Functions {
                     convertedNumber += (i + 1) * 100;
                     wordsCounter--;
 
+
                 } else if (splitNumber[splitNumber.length - wordsCounter].equals(TENS[i])) {
-                    convertedNumber += i * 10;
+                    convertedNumber += (i+1) * 10;
+                    wordsCounter--;
+
+                } else if (splitNumber[splitNumber.length - wordsCounter].equals(UNITS11_19[i])) {
+                    convertedNumber += i+11;
                     wordsCounter--;
 
                 } else if (splitNumber[splitNumber.length - wordsCounter].equals(UNITS[i])) {
                     convertedNumber += i;
-                    wordsCounter--;
-
-                } else if (splitNumber[splitNumber.length - wordsCounter].equals(UNITS11_19[i])) {
-                    convertedNumber += i + 1;
                     wordsCounter--;
 
                 }
@@ -131,5 +98,4 @@ public class Functions {
 
         }return convertedNumber;
     }
-    
 }
