@@ -108,14 +108,51 @@ public class StringTest {
 
     @Test
     public void test_4Words_changeSymbols  () {
-        String [] array = new String[] {"мир", "дружба", "жвачка", "ура"};
+        String [] array = {"мир", "дружба", "жвачка", "ура"};
         String [] actual = StringHomework.changeSymbols (array, 6 );
         String [] expected = {"мир", "дру$$$", "жва$$$", "ура"};
         Assertions.assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void test_addSpaceAfterPunctuation () {
+        String actual = StringHomework.addSpaceAfterPunctuation("здравствуй,милая, привет!рад видеть");
+        String expected = "здравствуй, милая, привет! рад видеть";
+        Assertions.assertEquals(expected, actual);
+    }
 
+    @Test
+    public void test_onlyUniqueSymbols () {
+        String actual = StringHomework.onlyUniqueSymbols("солнышко вышло");
+        String expected = "солнышк в";
+        Assertions.assertEquals(expected, actual);
+    }
 
+    @Test
+    public void test_7words_quantityOfWords  () {
+        int actual = StringHomework.quantityOfWords ("let's think about it a bit later");
+        int expected = 7;
+        Assertions.assertEquals(expected, actual);
+    }
 
+    @Test
+    public void test_deletePart () {
+        String actual = StringHomework.deletePart("растерянный малыш", 3, 6);
+        String expected = "расый малыш";
+        Assertions.assertEquals(expected, actual);
+    }
 
+    @Test
+    public void test_stringReverse () {
+        String actual = StringHomework.stringReverse("крапива растёт");
+        String expected = "тётсар авипарк";
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_deleteLastWord () {
+        String actual = StringHomework.deleteLastWord("hello, dear friends");
+        String expected = "hello, dear";
+        Assertions.assertEquals(expected, actual);
+    }
 }

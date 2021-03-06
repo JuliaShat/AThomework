@@ -1,5 +1,8 @@
 package com.javacourse.strings;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,7 +48,7 @@ public class StringHomework {
     public static int stringToNumber (String str) {
         int number = 0;
         try {
-            number = Integer.parseInt(str.trim());
+            number = Integer.parseInt(str.strip());
         } catch (NumberFormatException e) {
             throw new NumberFormatException ("Неверный формат строки!");
         } return number;
@@ -54,7 +57,7 @@ public class StringHomework {
     public static double stringToRealNumber (String str1) {
         double number1 = 0;
         try {
-            number1 = Double.parseDouble(str1.trim());
+            number1 = Double.parseDouble(str1.strip());
         } catch (NumberFormatException e) {
             System.err.println("Неверный формат строки!");
         } return number1;
@@ -68,10 +71,66 @@ public class StringHomework {
                 shortestword = words[i].length();
             }
         }
-        return shortestword; //
+        return shortestword;
     }
 
 
+    public static String [] changeSymbols(String words[], int assignedSize) {
+        for(int i = 0; i < words.length; i++) {
+            if(words[i].length() == assignedSize) {
+                words[i] = words[i].substring(0, words[i].length() - 3) + "$$$";
+            }
+        }
+        return words;
+}
 
+    public static String addSpaceAfterPunctuation(String str){
+        for (int i = 0; i < str.length() - 1; i++) {
+            char chr = str.charAt(i);
+            if (((chr >= 33 && chr <= 47) || (chr >= 58 && chr <= 63) && (str.charAt(i + 1) != ' '))) {
+                str = str.replace(Character.toString(chr), (chr + " "));
+            }
+        }
+        return str;
+    }
+
+    public static String onlyUniqueSymbols(String s) {
+        String result = "";
+        for(int i = 0; i < s.length(); i++) {
+            if (result.indexOf(s.charAt(i)) == - 1) {
+                result += s.charAt(i);
+            }
+        }
+        return result;
+    }
+
+    public static int quantityOfWords(String str) {
+        String[] words = str.split(" ");
+        int quantity = 0;
+        for (int i = 0; i < words.length; i++) {
+            quantity++;
+        }
+        return quantity;
+    }
+
+    public static String deletePart (String string, int startInd, int SizeToDelete){
+        return string.replace(string.substring(startInd, (startInd + SizeToDelete)), "");
+    }
+
+    public static String stringReverse (String string){
+        StringBuilder str = new StringBuilder(string);
+        return str.reverse().toString();
+    }
+
+    public static String deleteLastWord (String s) {
+       int amount = s.length();
+        for (int i = amount - 1; i >= 0; i--) {
+            if (s.charAt(i) == ' ') {
+                amount = i;
+                break;
+            }
+        }
+        return s.substring(0, amount);
+    }
 
 }
